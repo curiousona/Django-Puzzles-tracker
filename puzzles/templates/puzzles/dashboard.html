@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Puzzle Progress Dashboard</title>
+    <link rel="stylesheet" href="{% static 'puzzles/dashboard.css' %}">
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px #ddd; }
+        h1 { text-align: center; color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 2em; }
+        th, td { padding: 0.75em 1em; border-bottom: 1px solid #eee; text-align: center; }
+        th { background: #f0f0f0; color: #444; }
+        tr:last-child td { border-bottom: none; }
+        .percent { font-weight: bold; color: #2a7; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Puzzle Progress Dashboard</h1>
+        <table id="stats-table">
+            <tr>
+                <th>Category</th>
+                <th>Solved</th>
+                <th>Total</th>
+                <th>Completion %</th>
+            </tr>
+            {% for cat, data in stats.items %}
+            <tr data-category="{{ cat }}">
+                <td>{{ cat }}</td>
+                <td class="solved">{{ data.solved }}</td>
+                <td class="total">{{ data.total }}</td>
+                <td class="percent">{{ data.percent|floatformat:1 }}%</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th>Overall</th>
+                <th id="overall-solved">{{ overall_solved }}</th>
+                <th id="overall-total">{{ overall_total }}</th>
+                <th id="overall-percent">{{ overall_percent|floatformat:1 }}%</th>
+            </tr>
+        </table>
+    </div>
+    <div class="container">
+        <h2>Puzzles by Category</h2>
+        {% for cat, puzzles in puzzles_by_category.items %}
+            <h3>{{ cat }}</h3>
+            <ul style="list-style: none; padding-left: 0;">
+            {% for puzzle in puzzles %}
+                <li style="margin-bottom: 0.5em;">
+                    <input type="checkbox" class="puzzle-checkbox" data-id="{{ puzzle.id }}" data-category="{{ cat }}" {% if puzzle.solved %}checked{% endif %}>
+                    <strong>{{ puzzle.title }}</strong>
+                    {% if puzzle.asked_in %}<br><small>Asked in: {{ puzzle.asked_in }}</small>{% endif %}
+                </li>
+            {% empty %}
+                <li>No puzzles in this category.</li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+    <script>
+    document.querySelectorAll('.puzzle-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            fetch("{% url 'toggle_solved' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({
+                    puzzle_id: this.dataset.id,
+                    solved: this.checked
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update stats table
+                    for (const [cat, stat] of Object.entries(data.stats)) {
+                        const row = document.querySelector(`#stats-table tr[data-category='${cat}']`);
+                        if (row) {
+                            row.querySelector('.solved').textContent = stat.solved;
+                            row.querySelector('.total').textContent = stat.total;
+                            row.querySelector('.percent').textContent = stat.percent.toFixed(1) + '%';
+                        }
+                    }
+                    // Update overall
+                    document.getElementById('overall-solved').textContent =
+                        Object.values(data.stats).reduce((a, b) => a + b.solved, 0);
+                    document.getElementById('overall-total').textContent =
+                        Object.values(data.stats).reduce((a, b) => a + b.total, 0);
+                    document.getElementById('overall-percent').textContent =
+                        data.overall_percent.toFixed(1) + '%';
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html> 
