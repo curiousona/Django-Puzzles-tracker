@@ -1,5 +1,7 @@
 # Django Puzzle Tracker App
 
+> _This project was born out of my journey solving puzzles and learning Django. As I explored both, I realized I wanted a way to track my progress, categorize puzzles, and visualize my learning—all in one place. That's how this app came to life!_
+
 A web application to track, categorize, and mark completion of logic, math, arrangement, shape, and other puzzles. Built with Django, featuring an interactive dashboard, admin management, CSV export, and live progress tracking.
 
 ---
