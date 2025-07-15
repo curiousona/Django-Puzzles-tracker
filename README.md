@@ -143,4 +143,8 @@ Pull requests and suggestions welcome!
 ---
 
 ## 📄 License
+<<<<<<< HEAD
 MIT 
+=======
+MIT 
+>>>>>>> a4e39f3bfb7b65de878064667d86fb9f06cf8f21
