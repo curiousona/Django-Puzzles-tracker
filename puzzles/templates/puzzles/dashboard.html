@@ -46,12 +46,18 @@
         <h2>Puzzles by Category</h2>
         {% for cat, puzzles in puzzles_by_category.items %}
             <h3>{{ cat }}</h3>
-            <ul style="list-style: none; padding-left: 0;">
+            <ul class="puzzle-list">
             {% for puzzle in puzzles %}
-                <li style="margin-bottom: 0.5em;">
-                    <input type="checkbox" class="puzzle-checkbox" data-id="{{ puzzle.id }}" data-category="{{ cat }}" {% if puzzle.solved %}checked{% endif %}>
-                    <strong>{{ puzzle.title }}</strong>
-                    {% if puzzle.asked_in %}<br><small>Asked in: {{ puzzle.asked_in }}</small>{% endif %}
+                <li>
+                    <div class="puzzle-card{% if puzzle.solved %} puzzle-solved{% endif %}">
+                        <input type="checkbox" class="puzzle-checkbox" data-id="{{ puzzle.id }}" data-category="{{ cat }}" {% if puzzle.solved %}checked{% endif %}>
+                        <div>
+                            <span class="puzzle-title">{{ puzzle.title }}</span>
+                            {% if puzzle.asked_in %}
+                                <div class="puzzle-meta">Asked in: {{ puzzle.asked_in }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </li>
             {% empty %}
                 <li>No puzzles in this category.</li>
