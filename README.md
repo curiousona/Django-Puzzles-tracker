@@ -82,8 +82,8 @@ python manage.py runserver
 
 ### 7️⃣ Access the App
 
-* **Dashboard:** [http://127.0.0.1:8000/puzzles/](http://127.0.0.1:8000/puzzles/)
-* **Admin Panel:** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+* **Dashboard:** [https://django-puzzles-tracker.onrender.com/puzzles/dashboard/](https://django-puzzles-tracker.onrender.com/puzzles/dashboard/)
+* **Admin Panel:** [https://django-puzzles-tracker.onrender.com/admin/puzzles/puzzle/](https://django-puzzles-tracker.onrender.com/admin/puzzles/puzzle/)
 
 ---
 
