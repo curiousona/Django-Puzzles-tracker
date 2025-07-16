@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: puzzle-tracker
+    name: django-puzzles-tracker
     env: python
     buildCommand: |
       pip install -r requirements.txt
