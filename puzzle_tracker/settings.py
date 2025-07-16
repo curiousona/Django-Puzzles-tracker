@@ -59,7 +59,9 @@ WSGI_APPLICATION = 'puzzle_tracker.wsgi.application'
 
 # ✅ PostgreSQL (Render) setup
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}'
+    )
 }
 
 
