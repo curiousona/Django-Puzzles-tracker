@@ -25,7 +25,7 @@ A web application to track, categorize, and mark the completion of logic, math, 
 
 ### Dashboard
 
-![Dashboard Screenshot](docs/dashboard.png)
+![Dashboard Screenshot](<img width="1269" height="852" alt="Screenshot 2025-07-16 at 5 10 07 PM" src="https://github.com/user-attachments/assets/a343b34d-d6e7-46fb-a590-fd15a4659480" />)
 
 * **Top Table:** Solved / Total / % per category and overall
 * **Checklist:** Check/uncheck puzzles to mark as solved/unsolved — updates stats live
