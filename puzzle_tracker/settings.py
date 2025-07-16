@@ -8,7 +8,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-use-your-real-key-in-
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['django-puzzles-tracker.onrender.com']  # ✅ Change this after your Render app is created
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'django-puzzles-tracker.onrender.com']
 
 
 INSTALLED_APPS = [
