@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+
+# macOS system files
+.DS_Store
+
+# SQLite database
+/db.sqlite3
+
+# Static files directory
+/staticfiles/ 
